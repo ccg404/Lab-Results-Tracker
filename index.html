@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="light" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>RenalCare Tracker</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap"
+    />
+   <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <div class="logo">
+          <svg
+            viewBox="0 0 24 24"
+            width="26"
+            height="26"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" />
+            <path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5" />
+          </svg>
+        </div>
+        <div>
+          <h1>RenalCare Tracker</h1>
+          <p class="sub">
+            Pre-HD Protocol · Patient: Father · Hemodialysis care
+          </p>
+        </div>
+      </header>
+      <nav class="tabs">
+        <button id="b-entry">Lab entry</button
+        ><button id="b-dash" class="on">Trends &amp; dashboard</button>
+      </nav>
+      <section id="tab-entry" hidden>
+        <div class="card">
+          <h2 id="ft">New laboratory panel entry</h2>
+          <div class="row">
+            <label class="fld">Date<input type="date" id="d" /></label
+            ><label class="fld" style="flex: 1; min-width: 180px"
+              >Remarks<input id="rm" list="rml" placeholder="Pre-HD Session"
+            /></label>
+          </div>
+          <datalist id="rml">
+            <option value="Pre-HD Session"></option>
+            <option value="Post-HD Session"></option>
+            <option value="Routine"></option>
+          </datalist>
+        </div>
+        <div id="f"></div>
+        <div class="bar">
+          <button id="cl">Clear</button
+          ><button class="p" id="sv">Save entry</button>
+        </div>
+        <div class="card">
+          <h2>Entries</h2>
+          <div id="ls"></div>
+          <div class="row" style="margin-top: 10px">
+            <button id="ex">Export JSON</button>
+            <label class="row"
+              >Import <input type="file" id="im" accept=".json"
+            /></label>
+          </div>
+        </div>
+      </section>
+      <section id="tab-dash">
+        <div class="card">
+          <h2>Latest snapshot <span class="rng" id="sd"></span></h2>
+          <div class="row" style="align-items: flex-start; gap: 20px">
+            <div id="dn" style="text-align: center; min-width: 130px"></div>
+            <div
+              id="sn"
+              class="grid"
+              style="
+                flex: 1;
+                min-width: 240px;
+                grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+              "
+            ></div>
+          </div>
+          <p class="rng" style="margin: 4px 0 0">
+            Bars show where the value sits against the normal range (shaded).
+            Marker outside the shade = high or low.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Trend</h2>
+          <div class="row" style="margin-bottom: 8px">
+            <select id="ts"></select
+            ><span class="rng" id="tr"></span>
+          </div>
+          <svg id="ch" viewBox="0 0 640 250"></svg>
+          <div class="chips row" id="st" style="margin-top: 8px"></div>
+        </div>
+
+        <div class="card">
+          <h2>
+            All trends at a glance
+            <span class="rng">(tap one to open it above)</span>
+          </h2>
+          <div
+            id="sp"
+            class="grid"
+            style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))"
+          ></div>
+        </div>
+
+        <div class="card">
+          <h2>
+            Compare results
+            <span class="rng">(latest 8 dates; H = high, L = low)</span>
+          </h2>
+          <div class="sc" id="cmp"></div>
+        </div>
+      </section>
+      <p class="sub">
+        Data stays in this browser only; use Export to back it up. Reference
+        ranges are from Cagayan de Oro Medical Center. Not medical advice —
+        review results with the doctor.
+      </p>
+      <div id="toast"></div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
