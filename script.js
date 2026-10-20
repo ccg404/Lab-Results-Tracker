@@ -30,37 +30,7 @@ const T = [
       const $ = (i) => document.getElementById(i);
       let E = [],
         editId = null;
-      const seed = [
-        {
-          id: "s1",
-          date: "2026-10-06",
-          rm: "Pre-HD",
-          v: {
-            wbc: 5300,
-            rbc: 3.72,
-            hgb: 9.9,
-            hct: 29.4,
-            plt: 131000,
-            mcv: 79,
-            mch: 26.5,
-            mchc: 33.6,
-            rdw: 18.2,
-            neut: 78,
-            lym: 12.6,
-            mono: 6,
-            eos: 3.4,
-            baso: 0,
-            na: 134,
-            k: 5.2,
-            phos: 5.8,
-            alb: 4.05,
-            ca: 8.06,
-            cr: 14.15,
-            ua: 4.4,
-            bun: 69.01,
-          },
-        },
-      ];
+      const seed = [];
       try {
         const s = localStorage.getItem("labs");
         E = s ? JSON.parse(s) : seed;
@@ -296,8 +266,8 @@ const T = [
       function snap() {
         const e = E[E.length - 1];
         if (!e) {
-          $("sn").innerHTML = "";
-          $("dn").innerHTML = "";
+          $("sn").innerHTML = "<p class='rng'>No entries yet.</p>";
+          $("dn").innerHTML = "<p class='rng'>0/0 in range</p>";
           $("sd").textContent = "";
           return;
         }
