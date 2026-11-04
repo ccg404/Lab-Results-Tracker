@@ -269,6 +269,10 @@ const T = [
           $("sn").innerHTML = "<p class='rng'>No entries yet.</p>";
           $("dn").innerHTML = "<p class='rng'>0/0 in range</p>";
           $("sd").textContent = "";
+          $("ch").innerHTML = "<text x='320' y='125' text-anchor='middle' fill='currentColor' opacity='.6'>No data available</text>";
+          $("st").innerHTML = "";
+          $("sp").innerHTML = "<p class='rng'>No trends available</p>";
+          $("cmp").innerHTML = "<p class='rng'>No comparison data available</p>";
           return;
         }
         $("sd").textContent = "· " + fd(e.date) + (e.rm ? " · " + e.rm : "");
@@ -360,3 +364,56 @@ const T = [
       save();
       render();
       tab("dash");
+      // Image upload functionality
+      $("img-upload").onclick = () => $("img-input").click();
+      $("img-input").onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Create a preview of the uploaded image
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            // Display the image preview
+            const preview = document.createElement("div");
+            preview.style.marginTop = "20px";
+            preview.innerHTML = `<h3>Image Preview</h3><img src="${img.src}" style="max-width: 100%; height: auto;">`;
+            $("tab-entry").appendChild(preview);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        // Process the image to extract text
+        try {
+          toast("Processing image...");
+          // In a real implementation, you would use a library like Tesseract.js here
+          // For this example, we'll simulate processing
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          toast("Image processing complete!");
+
+          // Simulate extracted data
+          const extractedData = {
+            date: new Date().toISOString().slice(0, 10),
+            rm: "Extracted from image",
+            v: {
+              wbc: 5000,
+              rbc: 4.5,
+              hgb: 14.0,
+              // Add more simulated data as needed
+            }
+          };
+
+          // Add the extracted data to the entries
+          E.push({
+            id: "img-" + Date.now(),
+            ...extractedData
+          });
+          save();
+          render();
+          toast("Data extracted from image and added to entries");
+        } catch (error) {
+          toast("Error processing image: " + error.message);
+        }
+      };

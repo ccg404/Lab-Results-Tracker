@@ -120,6 +120,14 @@
         <div class="card">
           <h2>
             Compare results
+          <div class="row" style="margin-top: 10px">
+            <button id="ex">Export JSON</button>
+            <label class="row">
+              Import <input type="file" id="im" accept=".json" />
+            </label>
+            <button id="img-upload">Upload Image</button>
+            <input type="file" id="img-input" accept="image/*" style="display: none;" />
+          </div>
             <span class="rng">(latest 8 dates; H = high, L = low)</span>
           </h2>
           <div class="sc" id="cmp"></div>
